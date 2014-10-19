@@ -40,16 +40,16 @@ public class ImgUploadAction extends ActionSupport {
 		PrintWriter out = null;
 		try {
 			// 1.saveFileAsTempDir
-//			ShellExecutor.exec(" ", file.getAbsolutePath());
-//
-//			String resultJSON = JSONFileReader.readerFromFile(file.getPath()
-//					+ "");
+			ShellExecutor.exec(" ", file.getAbsolutePath());
+
+			String resultJSON = JSONFileReader.readerFromFile(file.getPath()
+					+ "");
 
 			HttpServletResponse response = ServletActionContext.getResponse();
 			// 以下代码从JSON.java中拷过来的
 			response.setContentType("text/html");
 			out = response.getWriter();
-			out.println("hello~!!");
+			out.println(resultJSON.trim());
 			out.flush();
 
 		} catch (IOException e) {
@@ -74,17 +74,5 @@ public class ImgUploadAction extends ActionSupport {
 		return filename;
 	}
 
-	public static void main(String[] args) {
-		try {
-			// 1.saveFileAsTempDir
-			final File temp = File.createTempFile("temp",
-					Long.toString(System.nanoTime()));
-			temp.mkdir();
-
-			System.out.println(temp.getCanonicalPath());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	
 }
