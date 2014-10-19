@@ -40,16 +40,16 @@ public class ImgUploadAction extends ActionSupport {
 		PrintWriter out = null;
 		try {
 			// 1.saveFileAsTempDir
-			ShellExecutor.exec(" ", file.getAbsolutePath());
-
-			String resultJSON = JSONFileReader.readerFromFile(file.getPath()
-					+ "");
+//			ShellExecutor.exec(" ", file.getAbsolutePath());
+//
+//			String resultJSON = JSONFileReader.readerFromFile(file.getPath()
+//					+ "");
 
 			HttpServletResponse response = ServletActionContext.getResponse();
 			// 以下代码从JSON.java中拷过来的
 			response.setContentType("text/html");
 			out = response.getWriter();
-			out.println(resultJSON);
+			out.println("hello~!!");
 			out.flush();
 
 		} catch (IOException e) {
