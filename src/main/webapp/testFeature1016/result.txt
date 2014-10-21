@@ -1,0 +1,2 @@
+G:\04_Projects\Github\eyedropper\src\main\webapp\testFeature1016\tes\1.jpg	163	260	1	0.041408	0.296111	0.339408
+All time: 0.375831 S
