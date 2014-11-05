@@ -7,18 +7,45 @@ import java.io.IOException;
 
 public class JSONFileReader {
 
+	/**
+	 * 读取文件内容。
+	 * 
+	 * @param filePath
+	 * @return
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	public static String readerFromFile(String filePath)
 			throws FileNotFoundException, IOException {
 
-		FileReader fr = new FileReader(filePath);
-		BufferedReader br = new BufferedReader(fr);
-		StringBuilder sb = new StringBuilder();
-		String s;
-		while ((s = br.readLine()) != null) {
-			sb.append(s.trim());
-		}
+		StringBuilder sb;
+		FileReader fr = null;
+		BufferedReader br = null;
+		try {
 
-		fr.close();
+			fr = new FileReader(filePath);
+			br = new BufferedReader(fr);
+
+			sb = new StringBuilder();
+			String s;
+			while ((s = br.readLine()) != null) {
+				sb.append(s.trim());
+			}
+
+			fr.close();
+
+		} catch (FileNotFoundException e) {
+			throw e;
+		} catch (IOException ioe) {
+			throw ioe;
+		} finally {
+			if (fr != null) {
+				fr.close();
+			}
+			if (br != null) {
+				br.close();
+			}
+		}
 		return sb.toString();
 	}
 

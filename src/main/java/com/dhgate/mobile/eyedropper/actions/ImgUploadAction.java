@@ -11,6 +11,7 @@ import org.apache.struts2.ServletActionContext;
 import com.dhgate.mobile.eyedropper.service.JSONFileReader;
 import com.dhgate.mobile.eyedropper.service.ShellExecutor;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.inject.Inject;
 
 public class ImgUploadAction extends ActionSupport {
 
@@ -22,6 +23,12 @@ public class ImgUploadAction extends ActionSupport {
 	private File file;
 	private String contentType;
 	private String filename;
+
+	@Inject("eyedropper.deepViewer.shell.dir")
+	private String shellPath;
+
+	@Inject("eyedropper.deepViewer.fileprocess.temp")
+	private String tempFilePath;
 
 	public void setUpload(File file) {
 		this.file = file;
@@ -39,21 +46,31 @@ public class ImgUploadAction extends ActionSupport {
 		// ...
 		PrintWriter out = null;
 		try {
-			// 1.saveFileAsTempDir
-			ShellExecutor.exec(" ", file.getAbsolutePath());
 
-			String resultJSON = JSONFileReader.readerFromFile(file.getPath()
-					+ "");
+			String tempDirName = Long.toString(System.nanoTime(), 36);
 
-			HttpServletResponse response = ServletActionContext.getResponse();
-			// 以下代码从JSON.java中拷过来的
-			response.setContentType("text/html");
-			out = response.getWriter();
-			out.println(resultJSON.trim());
-			out.flush();
+			String tempFileName = ServletActionContext.getServletContext()
+					.getRealPath("/" + tempDirName);
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println(tempFileName);
+
+			// // 1.saveFileAsTempDir;
+			// ShellExecutor.exec(shellPath, file.getAbsolutePath(), "");
+			//
+			// String resultJSON = JSONFileReader.readerFromFile(file.getPath()
+			// + "");
+			//
+			// // String resultJSON = "{aa:bb}";
+			//
+			// HttpServletResponse response =
+			// ServletActionContext.getResponse();
+			// // 2.Write json to HttpResponse;
+			// response.setContentType("text/html");
+			// out = response.getWriter();
+			// out.println(resultJSON.trim());
+			// out.flush();
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (out != null) {
@@ -61,7 +78,7 @@ public class ImgUploadAction extends ActionSupport {
 			}
 		}
 
-		return SUCCESS;
+		return "";
 	}
 
 	public static String trimExtension(String filename) {
@@ -74,5 +91,4 @@ public class ImgUploadAction extends ActionSupport {
 		return filename;
 	}
 
-	
 }
