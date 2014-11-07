@@ -40,6 +40,6 @@
 	<constant name="struts.convention.classLoader.excludeParent"
 		value="true" />
 
-	<constant name="eyedropper.deepViewer.shell.dir" value="F:/uploadRepository" />
-	<constant name="eyedropper.deepViewer.fileprocess.temp" value="F:/uploadRepository" />		
+	<constant name="eyedropper.deepViewer.shell.dir" value="G:/04_Projects/Github/eyedropper/src/main/webapp/testFeature1016/deepview.exe" />
+	<constant name="eyedropper.deepViewer.fileprocess.temp" value="G:/04_Projects/Github/eyedropper/src/main/webapp/testFeature1016/temp" />		
 </struts>
